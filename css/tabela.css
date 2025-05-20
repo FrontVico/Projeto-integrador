@@ -1,0 +1,274 @@
+
+:root {
+  --primary: #FF3E00;    /* Laranja neon */
+  --secondary: #00F5FF;   /* Ciano vibrante */
+  --accent: #FF00AA;     /* Rosa choque */
+  --dark: #170055;       /* Roxo profundo */
+  --light: #FFF5E0;      /* Amarelo claro */
+}
+
+body {
+  background-color: #000;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: var(--secondary);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float 15s infinite linear;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-1000px) rotate(720deg); }
+}
+
+.logo-large {
+  width: 220px;
+  filter: drop-shadow(0 0 15px var(--primary));
+}
+
+.impact-phrase {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(255,0,170,0.3);
+  line-height: 1.2;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 30px rgba(255,62,0,0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 0 50px rgba(255,62,0,0.6);
+}
+
+.card-icon {
+  font-size: 2rem;
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.element-bubble {
+  display: inline-flex;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  margin: 0.25rem;
+  box-shadow: 0 0 10px currentColor;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  animation: bounce 3s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.chemistry-fact {
+  background: rgba(23,0,85,0.6);
+  border-left: 5px solid var(--primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.chemistry-fact::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    transparent 0%,
+    rgba(0,245,255,0.1) 50%,
+    transparent 100%
+  );
+  transform: rotate(30deg);
+  animation: shine 5s infinite;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  100% { left: 150%; }
+}
+
+.cta-section {
+  background: linear-gradient(45deg, var(--dark), #000);
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 40px rgba(255,62,0,0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-explode {
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 0 20px rgba(255,62,0,0.6);
+  transition: all 0.3s ease;
+}
+
+.btn-explode:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 30px rgba(255,62,0,0.9);
+}
+
+.btn-explode::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--accent), var(--primary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.btn-explode:hover::after {
+  opacity: 1;
+}
+
+/* Estilos específicos para a tabela periódica */
+.periodic-container {
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,62,0,0.3);
+  box-shadow: 0 0 30px rgba(255,62,0,0.2);
+}
+
+.element {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.element::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.05);
+  z-index: -1;
+}
+
+.element:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px currentColor;
+  z-index: 10;
+}
+
+.element.selected {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px var(--primary);
+  z-index: 20;
+}
+
+/* Cores dos elementos */
+.alkali { background-color: rgba(255, 64, 0, 0.925); color: #FF3E00; }
+.alkaline { background-color: rgba(255, 166, 0, 0.89); color: #FFA500; }
+.transition { background-color: rgba(0, 191, 255, 0.918); color: #00BFFF; }
+.metal { background-color: rgba(100, 148, 237, 0.925); color: #6495ED; }
+.metalloid { background-color: rgba(148, 112, 219, 0.932); color: #9370DB; }
+.nonmetal { background-color: rgba(50, 205, 50, 0.918); color: #32CD32; }
+.halogen { background-color: rgba(0, 255, 128, 0.884); color: #00FF7F; }
+.noble { background-color: rgba(0, 247, 255, 0.897); color: #00F5FF; }
+.lanthanide { background-color: rgba(255, 105, 180, 0.897); color: #FF69B4; }
+.actinide { background-color: rgba(255, 0, 255, 0.904); color: #FF00FF; }
+
+/* Painel de informações */
+.info-panel {
+  background: rgba(23, 0, 85, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 30px rgba(255,62,0,0.3);
+}
+
+.info-panel-section {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+
+/* Modal de ajuda */
+.help-modal {
+  background: rgba(23, 0, 85, 0.9);
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 40px rgba(255,0,170,0.4);
+}
+
+/* Barra de busca */
+.search-box {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+}
+
+.search-box:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+/* Filtro */
+.filter-select {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+}
+
+.filter-select:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 10px var(--secondary);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .impact-phrase {
+    font-size: 1.8rem;
+  }
+  
+  .element-bubble {
+    width: 40px;
+    height: 40px;
+    font-size: 0.8rem;
+  }
+}

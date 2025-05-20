@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela Periódica Interativa | Química Explosiva</title>
+
+  <script src="../js/script.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/tabela.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen">
+
+  <!-- Background Particles -->
+  <div class="particles" id="particles"></div>
+  
+  <div class="content-wrapper relative z-10">
+    <!-- sidebar -->
+    <nav class="navbar">
+      <ul class="sidebar">
+        <li onclick="hideSidebar()"><a href=""><img class="close" src="../img/close.png" alt=""></a></li>
+        <li><a href="../index.html">Página Inicial</a></li>
+        <li><a href="conversor.html">Conversor Químico</a></li>
+        <li><a href="equipe.html">Equipe</a></li>
+      </ul>
+    </nav>
+    
+    <!-- navbar -->
+    <nav class="navbar">
+      <ul>
+        <li><img class="logo" src="../img/logo.png" alt=""></li>
+        <li class="hideOnMobile"><a href="../index.html">Página inicial</a></li>
+        <li class="hideOnMobile"><a href="conversor.html">Conversor Químico</a></li>
+        <li class="hideOnMobile"><a href="equipe.html">Equipe</a></li>
+        <li class="menu-button" onclick="showSidebar()"><a href="#"><img class="open" src="../img/open.png" alt=""></a></li>
+      </ul>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+      <!-- Cabeçalho -->
+      <div class="text-center mb-8">
+        <h1 class="impact-phrase mb-4">TABELA PERIÓDICA <span class="text-secondary">EXPLOSIVA</span></h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+          Explore os elementos químicos de forma <span class="text-primary">intensa</span> e <span class="text-accent">interativa</span>
+        </p>
+      </div>
+      
+      <!-- Painel de Busca -->
+      <div class="feature-card p-6 mb-8">
+        <div class="flex flex-col md:flex-row gap-4">
+          <!-- Busca por nome/símbolo -->
+          <div class="flex-1">
+            <label class="block text-sm font-medium text-gray-300 mb-2">
+              <i class="fas fa-search text-secondary mr-2"></i>BUSCAR ELEMENTO
+            </label>
+            <div class="relative">
+              <input type="text" id="elementSearch" 
+                     class="w-full pl-10 pr-4 py-3 rounded-lg search-box focus:ring-2 focus:ring-primary focus:border-primary" 
+                     placeholder="Digite nome ou símbolo">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-atom text-gray-400"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Filtro por categoria -->
+          <div class="flex-1">
+            <label class="block text-sm font-medium text-gray-300 mb-2">
+              <i class="fas fa-filter text-accent mr-2"></i>FILTRAR POR
+            </label>
+            <select id="elementFilter" class="w-full px-4 py-3 rounded-lg filter-select focus:ring-2 focus:ring-secondary focus:border-secondary">
+              <option value="all">Todos os elementos</option>
+              <option value="metal">Metais</option>
+              <option value="nonmetal">Não-metais</option>
+              <option value="metalloid">Semimetais</option>
+              <option value="noble">Gases Nobres</option>
+              <option value="alkali">Metais Alcalinos</option>
+              <option value="alkaline">Metais Alcalino-Terrosos</option>
+              <option value="transition">Metais de Transição</option>
+              <option value="lanthanide">Lantanídeos</option>
+              <option value="actinide">Actinídeos</option>
+            </select>
+          </div>
+          
+          <!-- Botão de ajuda -->
+          <div class="flex items-end">
+            <button id="helpButton" class="px-4 py-3 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 transition">
+              <i class="fas fa-question-circle mr-2 text-primary"></i>AJUDA
+            </button>
+          </div>
+        </div>
+        
+        <!-- Sugestões de busca -->
+        <div id="searchSuggestions" class="mt-2 hidden">
+          <div class="text-sm text-gray-400">Sugestões: 
+            <span class="text-blue-400 cursor-pointer hover:text-blue-300">Hidrogênio</span>, 
+            <span class="text-blue-400 cursor-pointer hover:text-blue-300">Fe</span>, 
+            <span class="text-blue-400 cursor-pointer hover:text-blue-300">Ouro</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tabela Periódica e Informações -->
+      <div class="flex flex-col lg:flex-row gap-6">
+        <!-- Tabela Periódica -->
+        <div class="flex-1">
+          <div class="periodic-container rounded-xl p-6">
+            <h2 class="text-xl font-semibold text-white mb-4 flex items-center">
+              <i class="fas fa-atom text-primary mr-2"></i> ELEMENTOS <span class="text-secondary">QUÍMICOS</span>
+            </h2>
+            <div id="periodicTable" class="grid grid-cols-18 gap-1"></div>
+            
+            <!-- Legenda -->
+            <div class="mt-6 pt-4 border-t border-gray-700">
+              <h3 class="text-sm font-medium text-gray-300 mb-3">LEGENDA:</h3>
+              <div class="flex flex-wrap gap-3">
+                <div class="flex items-center">
+                  <div class="w-4 h-4 bg-primary rounded mr-2"></div>
+                  <span class="text-xs text-gray-300">Alcalinos</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-4 h-4 bg-orange-500 rounded mr-2"></div>
+                  <span class="text-xs text-gray-300">Alcalino-Terrosos</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-4 h-4 bg-blue-400 rounded mr-2"></div>
+                  <span class="text-xs text-gray-300">Transição</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-4 h-4 bg-green-400 rounded mr-2"></div>
+                  <span class="text-xs text-gray-300">Não-Metais</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-4 h-4 bg-cyan-400 rounded mr-2"></div>
+                  <span class="text-xs text-gray-300">Gases Nobres</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-4 h-4 bg-purple-400 rounded mr-2"></div>
+                  <span class="text-xs text-gray-300">Semimetais</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-4 h-4 bg-pink-400 rounded mr-2"></div>
+                  <span class="text-xs text-gray-300">Lantanídeos</span>
+                </div>
+                <div class="flex items-center">
+                  <div class="w-4 h-4 bg-fuchsia-400 rounded mr-2"></div>
+                  <span class="text-xs text-gray-300">Actinídeos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Painel de Informações -->
+        <div class="lg:w-96">
+          <div id="elementInfo" class="info-panel rounded-xl p-6 sticky top-4">
+            <div class="text-center mb-4">
+              <div id="elementSymbol" class="text-6xl font-bold text-primary mb-2"></div>
+              <h2 id="elementName" class="text-2xl font-semibold text-white"></h2>
+              <div id="elementCategory" class="text-sm mt-2"></div>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="info-panel-section p-3">
+                  <div class="text-xs text-gray-400">Número Atômico</div>
+                  <div id="atomicNumber" class="text-lg font-semibold text-white"></div>
+                </div>
+                <div class="info-panel-section p-3">
+                  <div class="text-xs text-gray-400">Massa Atômica</div>
+                  <div id="atomicMass" class="text-lg font-semibold text-white"></div>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <div class="info-panel-section p-3">
+                  <div class="text-xs text-gray-400">Grupo</div>
+                  <div id="elementGroup" class="text-lg font-semibold text-white"></div>
+                </div>
+                <div class="info-panel-section p-3">
+                  <div class="text-xs text-gray-400">Período</div>
+                  <div id="elementPeriod" class="text-lg font-semibold text-white"></div>
+                </div>
+              </div>
+              
+              <div class="info-panel-section p-3">
+                <div class="text-xs text-gray-400">Estado em 25°C</div>
+                <div id="elementState" class="text-lg font-semibold text-white"></div>
+              </div>
+              
+              <div class="info-panel-section p-3">
+                <div class="text-xs text-gray-400">Configuração Eletrônica</div>
+                <div id="electronConfig" class="text-lg font-semibold font-mono text-secondary"></div>
+              </div>
+              
+              <div class="info-panel-section p-3">
+                <div class="text-xs text-gray-400">Descrição</div>
+                <div id="elementDescription" class="text-sm mt-1 text-gray-300"></div>
+              </div>
+            </div>
+            
+            <div class="mt-6 pt-4 border-t border-gray-700">
+              <h3 class="text-sm font-medium text-gray-300 mb-3">PROPRIEDADES <span class="text-accent">ADICIONAIS</span></h3>
+              <div class="grid grid-cols-2 gap-3 text-sm">
+                <div><span class="text-gray-400">Densidade:</span> <span id="elementDensity" class="text-white"></span></div>
+                <div><span class="text-gray-400">Ponto de Fusão:</span> <span id="elementMeltingPoint" class="text-white"></span></div>
+                <div><span class="text-gray-400">Ponto de Ebulição:</span> <span id="elementBoilingPoint" class="text-white"></span></div>
+                <div><span class="text-gray-400">Eletronegatividade:</span> <span id="elementElectronegativity" class="text-white"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Ajuda -->
+    <div id="helpModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
+      <div class="help-modal rounded-xl p-6 max-w-md w-full mx-4">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-white">
+            <i class="fas fa-question-circle text-accent mr-2"></i>COMO USAR
+          </h3>
+          <button id="closeHelpModal" class="text-gray-400 hover:text-white">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-semibold text-primary mb-2 flex items-center">
+              <i class="fas fa-search mr-2"></i> BUSCAR ELEMENTOS
+            </h4>
+            <p class="text-sm text-gray-300">Digite o nome, símbolo ou número atômico do elemento no campo de busca.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-secondary mb-2 flex items-center">
+              <i class="fas fa-filter mr-2"></i> FILTRAR ELEMENTOS
+            </h4>
+            <p class="text-sm text-gray-300">Use o menu suspenso para filtrar por categorias como metais, não-metais, etc.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-accent mb-2 flex items-center">
+              <i class="fas fa-mouse-pointer mr-2"></i> SELECIONAR ELEMENTOS
+            </h4>
+            <p class="text-sm text-gray-300">Clique em qualquer elemento na tabela para ver suas propriedades detalhadas.</p>
+          </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-gray-700">
+          <h4 class="font-semibold text-white mb-3">DICAS <span class="text-primary">RÁPIDAS</span></h4>
+          <ul class="list-disc pl-5 text-sm text-gray-300 space-y-2">
+            <li>Tente buscar "Au" para ouro ou "26" para ferro</li>
+            <li>Metais alcalinos estão na primeira coluna</li>
+            <li>Gases nobres estão na última coluna</li>
+            <li>Elementos radioativos estão marcados com <i class="fas fa-radiation text-red-400"></i></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    // Funções da sidebar
+    function showSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.style.display = 'flex';
+    }
+    
+    function hideSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.style.display = 'none';
+    }
+    
+    // Criar partículas
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Tamanho aleatório entre 2px e 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Posição aleatória
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Cor aleatória entre as cores principais
+        const colors = ['#FF3E00', '#00F5FF', '#FF00AA'];
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Duração da animação aleatória
+        particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(particle);
+      }
+    }
+    
+    // Iniciar partículas quando a página carregar
+    window.onload = function() {
+      createParticles();
+    };
+  </script>
