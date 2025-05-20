@@ -14,7 +14,6 @@ body {
 }
 
 .hero-section {
-  background: radial-gradient(circle at center, var(--dark) 0%, #000 100%);
   position: relative;
   overflow: hidden;
 }
