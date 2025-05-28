@@ -7,201 +7,10 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/conversor.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #FF3E00;    /* Laranja neon */
-      --secondary: #00F5FF;   /* Ciano vibrante */
-      --accent: #FF00AA;     /* Rosa choque */
-      --dark: #170055;       /* Roxo profundo */
-      --light: #FFF5E0;      /* Amarelo claro */
-    }
-    
-    body {
-      background-color: #000;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    
-    .navbar {
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--primary);
-    }
-    
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-    
-    .particle {
-      position: absolute;
-      background: var(--secondary);
-      border-radius: 50%;
-      opacity: 0.6;
-      animation: float 15s infinite linear;
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-1000px) rotate(720deg); }
-    }
-    
-    .impact-phrase {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(255,0,170,0.3);
-      line-height: 1.2;
-    }
-    
-    .feature-card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 0 30px rgba(255,62,0,0.3);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 0 50px rgba(255,62,0,0.6);
-    }
-    
-    .card-icon {
-      font-size: 2rem;
-      background: linear-gradient(45deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-    }
-    
-    .chemistry-fact {
-      background: rgba(23,0,85,0.6);
-      border-left: 5px solid var(--primary);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .chemistry-fact::after {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        to bottom right,
-        transparent 0%,
-        rgba(0,245,255,0.1) 50%,
-        transparent 100%
-      );
-      transform: rotate(30deg);
-      animation: shine 5s infinite;
-    }
-    
-    @keyframes shine {
-      0% { left: -50%; }
-      100% { left: 150%; }
-    }
-    
-    .btn-explode {
-      background: linear-gradient(45deg, var(--primary), var(--accent));
-      color: white;
-      border: none;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      box-shadow: 0 0 20px rgba(255,62,0,0.6);
-      transition: all 0.3s ease;
-    }
-    
-    .btn-explode:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 0 30px rgba(255,62,0,0.9);
-    }
-    
-    /* Estilos específicos para o conversor */
-    .converter-card {
-      background: rgba(23,0,85,0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--primary);
-      box-shadow: 0 0 30px rgba(255,62,0,0.3);
-    }
-    
-    .category-btn {
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: all 0.3s ease;
-    }
-    
-    .category-btn:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-    
-    .category-btn.active {
-      background: linear-gradient(45deg, var(--primary), var(--accent));
-      color: white;
-      box-shadow: 0 0 15px var(--primary);
-    }
-    
-    .input-field {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: white;
-    }
-    
-    .input-field:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 10px var(--primary);
-    }
-    
-    .result-box {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid var(--secondary);
-      box-shadow: 0 0 20px rgba(0,245,255,0.3);
-    }
-    
-    .help-modal {
-      background: rgba(23,0,85,0.9);
-      border: 1px solid var(--accent);
-      box-shadow: 0 0 40px rgba(255,0,170,0.4);
-    }
-    
-    /* Animação de destaque para resultados */
-    @keyframes highlight {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    .highlight {
-      animation: highlight 0.5s ease;
-    }
-    
-    @media (max-width: 768px) {
-      .impact-phrase {
-        font-size: 1.8rem;
-      }
-      
-      .category-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-  </style>
+
 </head>
 <body class="min-h-screen">
 
@@ -209,26 +18,25 @@
   <div class="particles" id="particles"></div>
   
   <div class="content-wrapper relative z-10">
-    <!-- sidebar -->
-    <nav class="navbar">
-      <ul class="sidebar">
-        <li onclick="hideSidebar()"><a href=""><img class="close" src="../img/close.png" alt=""></a></li>
-        <li><a href="../index.html">Página Inicial</a></li>
-        <li><a href="tabela.html">Tabela Periódica</a></li>
-        <li><a href="equipe.html">Equipe</a></li>
-      </ul>
-    </nav>
-    
-    <!-- navbar -->
-    <nav class="navbar">
-      <ul>
-        <li><img class="logo" src="../img/logo.png" alt=""></li>
-        <li class="hideOnMobile"><a href="../index.html">Página inicial</a></li>
-        <li class="hideOnMobile"><a href="tabela.html">Tabela Periódica</a></li>
-        <li class="hideOnMobile"><a href="equipe.html">Equipe</a></li>
-        <li class="menu-button" onclick="showSidebar()"><a href="#"><img class="open" src="../img/open.png" alt=""></a></li>
-      </ul>
-    </nav>
+
+  <!-- sidebar -->
+  <nav class="navbar navbar bg-orange-100">
+    <ul class="sidebar">
+      <li onclick="hideSidebar()"><a href=""><img class="close" src="../img/close.png" alt=""></a></li>
+      <li><a href="../index.html">Pagina Inicial</a></li>
+      <li><a href="tabela.html">Tabela Periódica</a></li>
+    </ul>
+  </nav>
+
+  <!-- navbar -->
+  <nav class="navbar">
+    <ul>
+      <li><img class="logo" src="../img/logo.png" alt=""></li>
+      <li class="hideOnMobile"><a href="../index.html">Pagina inicial</a></li>
+      <li class="hideOnMobile"><a href="tabela.html">Tabela Periódica</a></li>
+      <li class="menu-button" onclick="showSidebar()"><a href="#"><img class="open" src="../img/open.png" alt=""></a></li>
+    </ul>
+  </nav>
 
     <div class="container mx-auto px-4 py-8">
       <!-- Cabeçalho -->
@@ -451,4 +259,5 @@
   </script>
   <script src="../js/conversor.js"></script>
 </body>
+
 </html>
